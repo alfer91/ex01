@@ -106,5 +106,39 @@ public class SampleController {
 		
 		return "/sample/ex04";	// 파일 위치
 	}
-}
 
+
+	/* Controller의 리턴 타입 */
+	/* void */
+	@GetMapping("/ex05")    // // localhost:8080/sample/ex05
+	public void ex05() {
+		log.info("/ex05.........");
+	}
+    
+	/* 객체 타입, @ResponseBody json 데이터 */
+	@ResponseBody
+	@GetMapping("/ex06")    // localhost:8080/sample/ex06
+	public SampleDTO ex06() {    
+		log.info("/ex06.........");
+        
+		SampleDTO dto = new SampleDTO();
+		dto.setAge(10);
+		dto.setName("홍길동");
+        
+		return dto;
+	}
+    
+	/* ResponseEntity 타입, 헤더 메시지와 상태 코드 변환,전달 */
+	@GetMapping("/ex07")    // // localhost:8080/sample/ex07
+	public ResponseEntity<String> ex07() {
+		log.info("/ex07..........");
+        
+		// {"name": "홍길동"}
+		String msg = "{\"name\": \"홍길동\"}";
+        
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Type", "application/json;charset=UTF-8");
+        
+		return new ResponseEntity<String>(msg, header, HttpStatus.OK);
+	}
+}
